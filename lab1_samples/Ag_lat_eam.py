@@ -24,6 +24,14 @@ pair_coeff * * $POTENTIAL
 thermo_style custom step pe lx ly lz press pxx pyy pzz
 run 0
 
+#-- include optimization of the unit cell parameter
+fix 1 all box/relax iso 0.0 vmax 0.001
+
+#-- enable optimization of atomic positions (and the cell)
+min_style cg
+minimize 1e-10 1e-10 1000 10000
+
+
 # ---- 4. Define and print useful variables -------------
 variable natoms equal "count(all)"
 variable totenergy equal "pe"
@@ -41,9 +49,9 @@ def make_struc(alat):
     :return: structure object converted from ase
     """
     unitcell = crystal('Ag', [(0, 0, 0)], spacegroup=225, cellpar=[alat, alat, alat, 90, 90, 90])
-    #multiplier = numpy.identity(3) * 2
-    #ase_supercell = make_supercell(unitcell, multiplier)
-    structure = Struc(ase2struc(unitcell))
+    multiplier = numpy.identity(3) * 2
+    ase_supercell = make_supercell(unitcell, multiplier)
+    structure = Struc(ase2struc(ase_supercell))
     return structure
 
 
