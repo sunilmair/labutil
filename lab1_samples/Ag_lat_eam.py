@@ -15,7 +15,7 @@ read_data $DATAINPUT
 
 # ---------- 2. Specify interatomic potential ---------------------
 pair_style eam
-pair_coeff * * $POTENTIAL  Ag
+pair_coeff * * $POTENTIAL
 
 # pair_style lj/cut 4.5
 # pair_coeff 1 1 0.3450 2.644 4.5
