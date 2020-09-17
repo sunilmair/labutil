@@ -22,7 +22,7 @@ pair_coeff * * $POTENTIAL
 
 # ---------- 3. Run single point calculation  ---------------------
 thermo_style custom step pe lx ly lz press pxx pyy pzz
-run 0
+#run 0
 
 #-- include optimization of the unit cell parameter
 fix 1 all box/relax iso 0.0 vmax 0.001
@@ -79,4 +79,5 @@ def lattice_scan():
 
 if __name__ == '__main__':
     # put here the function that you actually want to run
-    lattice_scan()
+    #lattice_scan()
+    compute_energy(4.1, input_template)
