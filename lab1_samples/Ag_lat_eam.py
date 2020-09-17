@@ -51,7 +51,8 @@ def compute_energy(alat, template):
     """
     Make an input template and select potential and structure, and the path where to run
     """
-    potpath = os.path.join(os.environ['LAMMPS_POTENTIALS'],'Ag_u3.eam')
+    #potpath = os.path.join(os.environ['LAMMPS_POTENTIALS'],'Ag_u3.eam')
+    potpath = 'labutils/src/potentials/Ag.alloy'
     potential = ClassicalPotential(path=potpath, ptype='eam', element=["Ag"])
     runpath = Dir(path=os.path.join(os.environ['WORKDIR'], "Lab1", str(alat)))
     struc = make_struc(alat=alat)
