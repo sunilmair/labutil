@@ -28,6 +28,9 @@ fix 1 all box/relax iso 0.0 vmax 0.001
 min_style cg
 minimize 1e-10 1e-10 1000 10000
 
+# ----------- 3.5 Attempt dump ----------------
+dump myDump all atom 100 dump.atom
+
 
 # ---- 4. Define and print useful variables -------------
 variable natoms equal "count(all)"
@@ -46,7 +49,7 @@ def make_slab(alat, size_tuple):
     :return: structure object converted from ase
     """
     slab = fcc100('Ag', a=alat, size=size_tuple, vacuum=10.0)
-    #write('slab.cif', slab)
+    write(os.path.join(os.environ['WORKDIR'], 'Lab1', 'slab_input.cif'), slab)
     structure = Struc(ase2struc(slab))
     return structure
 
