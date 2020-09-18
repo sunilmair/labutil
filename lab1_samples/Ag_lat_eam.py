@@ -15,22 +15,22 @@ boundary   p p p
 read_data $DATAINPUT
 
 # ---------- 2. Specify interatomic potential ---------------------
-#pair_style eam
-#pair_coeff * * $POTENTIAL
+pair_style eam
+pair_coeff * * $POTENTIAL
 
-pair_style lj/cut 4.5
-pair_coeff 1 1 0.3450 2.644 4.5
+#pair_style lj/cut 4.5
+#pair_coeff 1 1 0.3450 2.644 4.5
 
 # ---------- 3. Run single point calculation  ---------------------
 thermo_style custom step pe lx ly lz press pxx pyy pzz
-run 0
+#run 0
 
 #-- include optimization of the unit cell parameter
-#fix 1 all box/relax iso 0.0 vmax 0.001
+fix 1 all box/relax iso 0.0 vmax 0.001
 
 #-- enable optimization of atomic positions (and the cell)
-#min_style cg
-#minimize 1e-10 1e-10 1000 10000
+min_style cg
+minimize 1e-10 1e-10 1000 10000
 
 
 # ---- 4. Define and print useful variables -------------
@@ -66,14 +66,11 @@ def make_struc_vac(alat, supercell_size):
     multiplier = numpy.identity(3) * supercell_size
     ase_supercell = make_supercell(unitcell, multiplier)
     for i in range(len(ase_supercell.positions)):
-        print(ase_supercell.positions[i])
-        print(supercell_size*alat/2)
         if (ase_supercell.positions[i] == [supercell_size*alat/2, supercell_size*alat/2, supercell_size*alat/2]).all():
             ase_supercell.pop(i)
             print("deleted atom")
             break
     structure = Struc(ase2struc(ase_supercell))
-    write("struct_vac.cif", ase_supercell)
     return structure
 
 
@@ -124,4 +121,6 @@ if __name__ == '__main__':
     # put here the function that you actually want to run
     #lattice_scan()
     #compute_energy(4.1, input_template)
-    compute_vac_energy(4.160286583, 3, input_template)
+    compute_vac_energy(4.089999944, 8, input_template)
+    compute_vac_energy(4.089999944, 10, input_template)
+    compute_vac_energy(4.089999944, 12, input_template)
