@@ -68,4 +68,4 @@ def compute_energy(alat, size_tuple, template):
 if __name__ == '__main__':
     # put here the function that you actually want to run
     #make_slab(4.1, (2,2,20))
-    compute_energy(4,1, (2, 2, 20), input_template)
+    compute_energy(4.160286583, (2, 2, 20), input_template)
