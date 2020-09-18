@@ -4,6 +4,7 @@ from ase.build import *
 import numpy
 import matplotlib.pyplot as plt
 
+from ase.io import write
 
 input_template = """
 # ---------- 1. Initialize simulation ---------------------
@@ -14,11 +15,11 @@ boundary   p p p
 read_data $DATAINPUT
 
 # ---------- 2. Specify interatomic potential ---------------------
-pair_style eam
-pair_coeff * * $POTENTIAL
+#pair_style eam
+#pair_coeff * * $POTENTIAL
 
-# pair_style lj/cut 4.5
-# pair_coeff 1 1 0.3450 2.644 4.5
+pair_style lj/cut 4.5
+pair_coeff 1 1 0.3450 2.644 4.5
 
 # ---------- 3. Run single point calculation  ---------------------
 thermo_style custom step pe lx ly lz press pxx pyy pzz
@@ -65,10 +66,14 @@ def make_struc_vac(alat, supercell_size):
     multiplier = numpy.identity(3) * supercell_size
     ase_supercell = make_supercell(unitcell, multiplier)
     for i in range(len(ase_supercell.positions)):
+        print(ase_supercell.positions[i])
+        print(supercell_size*alat/2)
         if (ase_supercell.positions[i] == [supercell_size*alat/2, supercell_size*alat/2, supercell_size*alat/2]).all():
             ase_supercell.pop(i)
+            print("deleted atom")
             break
     structure = Struc(ase2struc(ase_supercell))
+    write("struct_vac.cif", ase_supercell)
     return structure
 
 
@@ -98,7 +103,7 @@ def compute_vac_energy(alat, supercell_size, template):
     energy, lattice = get_lammps_energy(outfile=output_file)
 
     struc_vac = make_struc_vac(alat=alat, supercell_size=supercell_size)
-    output_file = lampmps_run(struc=struc, runpath=runpath, potential=potential, intemplate=template, inparam={})
+    output_file = lammps_run(struc=struc_vac, runpath=runpath, potential=potential, intemplate=template, inparam={})
     energy_vac, lattice_vac = get_lammps_energy(outfile=output_file)
 
     print(f'Energy: {energy}')
@@ -119,4 +124,4 @@ if __name__ == '__main__':
     # put here the function that you actually want to run
     #lattice_scan()
     #compute_energy(4.1, input_template)
-    compute_vac_energy(4.08999994375577, input_template)
+    compute_vac_energy(4.160286583, 3, input_template)
