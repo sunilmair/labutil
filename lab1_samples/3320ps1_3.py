@@ -17,6 +17,9 @@ read_data $DATAINPUT
 pair_style lj/cut 4.5
 pair_coeff 1 1 0.3450 2.644 4.5
 
+# ----------pre 3 Dump attempt ---------------
+dump myDump all atom 100 dump.atom
+
 # ---------- 3. Run single point calculation  ---------------------
 thermo_style custom step pe lx ly lz press pxx pyy pzz
 #run 0
@@ -27,9 +30,6 @@ fix 1 all box/relax iso 0.0 vmax 0.001
 #-- enable optimization of atomic positions (and the cell)
 min_style cg
 minimize 1e-10 1e-10 1000 10000
-
-# ----------- 3.5 Attempt dump ----------------
-dump myDump all atom 100 dump.atom
 
 
 # ---- 4. Define and print useful variables -------------
@@ -49,7 +49,7 @@ def make_slab(alat, size_tuple):
     :return: structure object converted from ase
     """
     slab = fcc100('Ag', a=alat, size=size_tuple, vacuum=10.0)
-    write(os.path.join(os.environ['WORKDIR'], 'Lab1', 'slab_input.cif'), slab)
+    write('slab.cif', slab)
     structure = Struc(ase2struc(slab))
     return structure
 
