@@ -11,11 +11,11 @@ boundary   p p p
 read_data $DATAINPUT
 
 # ---------- 2. Specify interatomic potential ---------------------
-#pair_style eam
-#pair_coeff * * $POTENTIAL
+pair_style eam
+pair_coeff * * $POTENTIAL
 
-pair_style lj/cut 4.5
-pair_coeff 1 1 0.3450 2.644 4.5
+#pair_style lj/cut 4.5
+#pair_coeff 1 1 0.3450 2.644 4.5
 
 # ----------pre 3 Dump attempt ---------------
 dump myDump all atom 100 dump.atom
@@ -71,4 +71,4 @@ def compute_energy(alat, size_tuple, template):
 if __name__ == '__main__':
     # put here the function that you actually want to run
     #make_slab(4.1, (2,2,20))
-    compute_energy(4.160286583, (2, 2, 20), input_template)
+    compute_energy(4.089999944, (4, 4, 20), input_template)
