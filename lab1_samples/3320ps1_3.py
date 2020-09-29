@@ -1,4 +1,4 @@
-from labutil.src.plugins.lammps import *
+#from labutil.src.plugins.lammps import *
 from ase.build import *
 from ase.io import write
 
@@ -50,7 +50,8 @@ def make_slab(alat, size_tuple):
     """
     slab = fcc100('Ag', a=alat, size=size_tuple, vacuum=10.0)
     write('slab.cif', slab)
-    structure = Struc(ase2struc(slab))
+    #structure = Struc(ase2struc(slab))
+    structure =3
     return structure
 
 def compute_energy(alat, size_tuple, template):
@@ -70,5 +71,5 @@ def compute_energy(alat, size_tuple, template):
 
 if __name__ == '__main__':
     # put here the function that you actually want to run
-    #make_slab(4.1, (2,2,20))
-    compute_energy(4.089999944, (4, 4, 20), input_template)
+    make_slab(4.089999944, (4,4,20))
+    #compute_energy(4.089999944, (4, 4, 20), input_template)
