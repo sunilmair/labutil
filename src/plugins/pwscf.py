@@ -101,6 +101,10 @@ def parse_qe_pwscf_output(outfile):
             if line.lower().startswith('!    total energy'):
                 total_energy = float(line.split()[-2]) * 13.605698066
             if line.lower().startswith('          total   stress'):
-                pressure = float(line.split()[-1])
+                #had to add if statement to circumvent an error
+                if line.split()[-1][:2] == 'P=':
+                    pressure = float(line.split()[-1][2:])
+                else:
+                    pressure = float(line.split()[-1])
     result = {'energy': total_energy, 'force': total_force, 'pressure': pressure}
     return result

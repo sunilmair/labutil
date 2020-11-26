@@ -49,7 +49,7 @@ def make_slab(alat, size_tuple):
     :return: structure object converted from ase
     """
     slab = fcc100('Ag', a=alat, size=size_tuple, vacuum=10.0)
-    write('slab.cif', slab)
+    write('slab_test.cif', slab)
     #structure = Struc(ase2struc(slab))
     structure =3
     return structure

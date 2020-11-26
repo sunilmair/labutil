@@ -121,6 +121,7 @@ if __name__ == '__main__':
     # put here the function that you actually want to run
     #lattice_scan()
     #compute_energy(4.1, input_template)
-    compute_vac_energy(4.089999944, 8, input_template)
-    compute_vac_energy(4.089999944, 10, input_template)
-    compute_vac_energy(4.089999944, 12, input_template)
+    #compute_vac_energy(4.089999944, 8, input_template)
+    #compute_vac_energy(4.089999944, 10, input_template)
+    #compute_vac_energy(4.089999944, 12, input_template)
+    print('hi')
